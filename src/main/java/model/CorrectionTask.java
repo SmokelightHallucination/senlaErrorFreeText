@@ -3,18 +3,15 @@ package model;
 import com.senla.test.senlaerrorfreetext.enums.Language;
 import com.senla.test.senlaerrorfreetext.enums.TaskStatus;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Builder
 @Getter
 @Setter
 @Entity
-@NoArgsConstructor
 @Data
 @Table(name = "correction_tasks")
 public class CorrectionTask {
@@ -47,4 +44,6 @@ public class CorrectionTask {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    public CorrectionTask() {
+    }
 }
