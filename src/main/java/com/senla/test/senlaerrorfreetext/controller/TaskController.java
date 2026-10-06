@@ -16,10 +16,10 @@ import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
-@RestController("/api")
+@RestController
+@RequestMapping("/api")
 public class TaskController {
     private final TaskService taskService;
-    private final TextCorrectionService textCorrectionService;
 
     @PostMapping("/correct")
     public ResponseEntity<CreateTaskResponse> createTask(

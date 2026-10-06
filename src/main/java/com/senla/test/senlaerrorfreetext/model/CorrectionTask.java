@@ -1,4 +1,4 @@
-package model;
+package com.senla.test.senlaerrorfreetext.model;
 
 import com.senla.test.senlaerrorfreetext.enums.Language;
 import com.senla.test.senlaerrorfreetext.enums.TaskStatus;
@@ -9,8 +9,6 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Builder
-@Getter
-@Setter
 @Entity
 @Data
 @Table(name = "correction_tasks")

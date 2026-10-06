@@ -6,8 +6,7 @@ import com.senla.test.senlaerrorfreetext.enums.TaskStatus;
 import com.senla.test.senlaerrorfreetext.repository.CorrectionTaskRepository;
 import com.senla.test.senlaerrorfreetext.service.TaskService;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
-import model.CorrectionTask;
+import com.senla.test.senlaerrorfreetext.model.CorrectionTask;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -38,8 +37,8 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskResponse getTask(UUID id) {
-        CorrectionTask task = repository.findById(id);
-//                .orElseThrow(() -> new TaskNotFoundException(id));
+        CorrectionTask task = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Task not found"));
 
         return new TaskResponse(
                 task.getStatus(),

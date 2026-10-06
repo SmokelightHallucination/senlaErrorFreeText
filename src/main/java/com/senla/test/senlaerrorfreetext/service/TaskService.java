@@ -2,7 +2,7 @@ package com.senla.test.senlaerrorfreetext.service;
 
 import com.senla.test.senlaerrorfreetext.dto.CreateTaskRequest;
 import com.senla.test.senlaerrorfreetext.dto.TaskResponse;
-import model.CorrectionTask;
+import com.senla.test.senlaerrorfreetext.model.CorrectionTask;
 
 import java.util.List;
 import java.util.UUID;
