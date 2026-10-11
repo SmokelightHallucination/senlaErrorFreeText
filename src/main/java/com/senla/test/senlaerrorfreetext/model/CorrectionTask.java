@@ -11,11 +11,12 @@ import java.util.UUID;
 @Builder
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "correction_tasks")
 public class CorrectionTask {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id",  updatable = false, nullable = false)
     private UUID id;
 
@@ -42,6 +43,4 @@ public class CorrectionTask {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    public CorrectionTask() {
-    }
 }
