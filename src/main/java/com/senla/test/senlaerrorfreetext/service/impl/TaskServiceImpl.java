@@ -3,6 +3,8 @@ package com.senla.test.senlaerrorfreetext.service.impl;
 import com.senla.test.senlaerrorfreetext.dto.CreateTaskRequest;
 import com.senla.test.senlaerrorfreetext.dto.TaskResponse;
 import com.senla.test.senlaerrorfreetext.enums.TaskStatus;
+import com.senla.test.senlaerrorfreetext.exception.InvalidTextException;
+import com.senla.test.senlaerrorfreetext.exception.TaskNotFoundException;
 import com.senla.test.senlaerrorfreetext.repository.CorrectionTaskRepository;
 import com.senla.test.senlaerrorfreetext.service.TaskService;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +32,14 @@ public class TaskServiceImpl implements TaskService {
                 .updatedAt(LocalDateTime.now())
                 .build();
 
+        boolean containsLetter = request.text()
+                .codePoints()
+                .anyMatch(Character::isLetter);
+
+        if (!containsLetter) {
+            throw new InvalidTextException("Text must contain at least one letter");
+        }
+
         repository.save(task);
 
         return task.getId();
@@ -38,7 +48,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public TaskResponse getTask(UUID id) {
         CorrectionTask task = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found"));
+                .orElseThrow(() -> new TaskNotFoundException(id));
 
         return new TaskResponse(
                 task.getStatus(),
