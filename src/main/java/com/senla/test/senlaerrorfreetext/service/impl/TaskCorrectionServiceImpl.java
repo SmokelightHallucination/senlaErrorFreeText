@@ -6,6 +6,7 @@ import com.senla.test.senlaerrorfreetext.enums.Language;
 import com.senla.test.senlaerrorfreetext.repository.CorrectionTaskRepository;
 import com.senla.test.senlaerrorfreetext.service.TextCorrectionService;
 import com.senla.test.senlaerrorfreetext.utils.SpellerOptionsUtils;
+import com.senla.test.senlaerrorfreetext.utils.TextChunkUtils;
 import com.senla.test.senlaerrorfreetext.utils.TextCorrectionUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,22 +23,25 @@ public class TaskCorrectionServiceImpl implements TextCorrectionService {
     @Override
     public String correctText(String text, Language language) {
         int options = SpellerOptionsUtils.calculateOptions(text);
-        List<SpellerError> errors = yandexSpellerClient.checkText(
-                text,
-                language.getApiValue(),
-                options
-        );
+        List<String> chunks = TextChunkUtils.splitText(text);
 
-        String correctedText = TextCorrectionUtils.applyCorrections(
-                text,
-                errors
-        );
+        StringBuilder result = new StringBuilder();
 
-        log.info("Text correction completed: length={}, errorsFound={}",
-                text.length(),
-                errors.size()
-        );
+        for (String chunk : chunks) {
+            List<SpellerError> errors = yandexSpellerClient.checkText(
+                    chunk,
+                    language.getApiValue(),
+                    options
+            );
 
-        return correctedText;
+            result.append(
+                    TextCorrectionUtils.applyCorrections(chunk, errors)
+            );
+        }
+
+        log.info("Text correction completed: length={}, chunks={}",
+                text.length(), chunks.size());
+
+        return result.toString();
     }
 }
