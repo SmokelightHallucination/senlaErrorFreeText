@@ -16,7 +16,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d error_free_text"]
+      test: [ "CMD-SHELL", "psql -U postgres -d error_free_text -v ON_ERROR_STOP=1 -c 'SELECT 1' >/dev/null" ]
       interval: 5s
       timeout: 5s
       retries: 10
