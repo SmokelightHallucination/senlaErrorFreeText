@@ -2,9 +2,7 @@ package com.senla.test.senlaerrorfreetext.utils;
 
 import com.senla.test.senlaerrorfreetext.dto.SpellerError;
 import org.junit.jupiter.api.Test;
-
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TextCorrectionUtilsTest {

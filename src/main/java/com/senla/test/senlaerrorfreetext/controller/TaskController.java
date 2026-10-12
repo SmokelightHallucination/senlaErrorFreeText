@@ -4,7 +4,6 @@ import com.senla.test.senlaerrorfreetext.dto.CreateTaskRequest;
 import com.senla.test.senlaerrorfreetext.dto.CreateTaskResponse;
 import com.senla.test.senlaerrorfreetext.dto.TaskResponse;
 import com.senla.test.senlaerrorfreetext.service.TaskService;
-import com.senla.test.senlaerrorfreetext.service.TextCorrectionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

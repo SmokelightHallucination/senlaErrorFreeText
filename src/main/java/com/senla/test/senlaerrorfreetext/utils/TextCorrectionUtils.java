@@ -1,7 +1,6 @@
 package com.senla.test.senlaerrorfreetext.utils;
 
 import com.senla.test.senlaerrorfreetext.dto.SpellerError;
-
 import java.util.Comparator;
 import java.util.List;
 
