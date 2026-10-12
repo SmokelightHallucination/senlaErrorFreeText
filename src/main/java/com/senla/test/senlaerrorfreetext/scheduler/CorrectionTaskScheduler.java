@@ -3,6 +3,7 @@ package com.senla.test.senlaerrorfreetext.scheduler;
 import com.senla.test.senlaerrorfreetext.model.CorrectionTask;
 import com.senla.test.senlaerrorfreetext.service.TaskService;
 import com.senla.test.senlaerrorfreetext.service.TextCorrectionService;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,6 +18,13 @@ public class CorrectionTaskScheduler {
 
     private final TaskService taskService;
     private final TextCorrectionService textCorrectionService;
+
+    @PostConstruct
+    public void recoverUnfinishedTasks() {
+        // Single instance only: finish recovery before this scheduler is registered.
+        int recovered = taskService.recoverProcessingTasks();
+        log.info("Recovered unfinished tasks: count={}", recovered);
+    }
 
     @Scheduled(fixedDelay = 5000)
     public void processTasks() {

@@ -2,12 +2,14 @@ package com.senla.test.senlaerrorfreetext.client;
 
 import com.senla.test.senlaerrorfreetext.dto.SpellerError;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 import org.springframework.web.client.RestClient;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Tag("integration")
 class YandexSpellerClientIntegrationTest {
 
     private final YandexSpellerClient client =

@@ -4,6 +4,7 @@ import com.senla.test.senlaerrorfreetext.dto.SpellerError;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -17,7 +18,12 @@ public class YandexSpellerClient {
     private final RestClient restClient;
 
     public YandexSpellerClient(RestClient.Builder builder) {
+        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+        requestFactory.setConnectTimeout(3000);
+        requestFactory.setReadTimeout(10000);
+
         this.restClient = builder
+                .requestFactory(requestFactory)
                 .baseUrl("https://speller.yandex.net/services/spellservice.json")
                 .build();
     }
@@ -51,8 +57,4 @@ public class YandexSpellerClient {
         return response.get(0);
     }
 
-    private String buildRequestBody(String text, String language, int options) {
-        // Временная заготовка, заменим на корректное формирование POST-параметров.
-        throw new UnsupportedOperationException("Not implemented yet");
-    }
 }

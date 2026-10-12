@@ -14,6 +14,8 @@ public interface TaskService {
 
     List<CorrectionTask> getNewTasks();
 
+    int recoverProcessingTasks();
+
     void markAsProcessing(CorrectionTask task);
 
     void markAsCompleted(CorrectionTask task, String correctedText);

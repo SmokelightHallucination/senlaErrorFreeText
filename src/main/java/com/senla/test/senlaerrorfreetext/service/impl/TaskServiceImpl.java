@@ -10,6 +10,7 @@ import com.senla.test.senlaerrorfreetext.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import com.senla.test.senlaerrorfreetext.model.CorrectionTask;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -60,6 +61,13 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<CorrectionTask> getNewTasks() {
         return repository.findTop10ByStatusOrderByCreatedAtAsc(TaskStatus.NEW);
+    }
+
+    @Override
+    @Transactional
+    public int recoverProcessingTasks() {
+        return repository.resetProcessingTasks(
+                TaskStatus.PROCESSING, TaskStatus.NEW, LocalDateTime.now());
     }
 
     @Override
